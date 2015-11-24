@@ -18,6 +18,7 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
 
+  networking.networkmanager.enable = true;
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -39,11 +40,23 @@
     git
     atom
 
-    firefox
+    firefoxWrapper
     numix-gtk-theme
     numix-icon-theme
     numix-icon-theme-circle
+
+    i3status
+    dmenu
+    i3lock
+
+    chefdk
+    vagrant
+
+    gnome3.dconf
+    networkmanagerapplet
   ];
+
+  services.xserver.displayManager.sessionCommands = "${pkgs.networkmanagerapplet}/bin/nmapplet &";
 
   programs.zsh.enable = true;
 
@@ -60,10 +73,13 @@
   services.xserver.layout = "fr";
   services.xserver.xkbOptions = "eurosign:e";
   services.xserver.synaptics.enable = true;
+  services.xserver.synaptics.twoFingerScroll = true;
 
   # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome3.enable = true;
+  #services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.desktopManager.gnome3.enable = true;
+
+  services.xserver.windowManager.i3.enable = true;
 
   # System wide zsh
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";
